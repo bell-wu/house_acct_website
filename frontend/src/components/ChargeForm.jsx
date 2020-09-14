@@ -18,7 +18,7 @@ export default function ChargeForm() {
 
   const onFinish = async (values) => {
     try {
-      const response = await axios.post('localhost:5000/purchase/add', values);
+      const response = await axios.post('http://localhost:5000/purchase/add', values);
       console.log('response:', response);
     } catch (e) {
       console.log(`Axios request failed: ${e}`);
@@ -52,7 +52,7 @@ export default function ChargeForm() {
         >
           <Input />
         </Form.Item>
-        
+
         <Form.Item
           label="Price"
           name="price"

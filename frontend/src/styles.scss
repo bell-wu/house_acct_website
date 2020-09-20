@@ -1,0 +1,7 @@
+.nonanimating-button {
+    button & 
+    [ant-click-animating-without-extra-node]:after {
+      animation: 0s !important;
+      // border-color: transparent !important;
+    }
+  }

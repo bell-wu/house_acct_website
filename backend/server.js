@@ -23,8 +23,10 @@ app.get('/', (req, res) => {
 });
 
 const purchaseRouter = require('./routes/purchase');
+const usersRouter = require('./routes/users');
 
 app.use('/purchase', purchaseRouter);
+app.use('/users', usersRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

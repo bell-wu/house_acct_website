@@ -4,7 +4,12 @@ import { Form, Input, InputNumber, DatePicker, Button, Space } from 'antd';
 import axios from 'axios';
 import NameButtonList from './NameButtonList';
 
-export default function ChargeForm() {
+interface OwnProps {
+  setAddRequestActive: Function,
+}
+
+export default function ChargeForm(props: OwnProps) {
+  const { setAddRequestActive } = props;
   const [ form ] = Form.useForm();
   const [ consumers, setConsumers ] = useState([]);
 
@@ -82,6 +87,7 @@ export default function ChargeForm() {
         </Form.Item>
 
         <Form.Item>
+          <Button type="default" onClick={() => setAddRequestActive(false)}>Cancel</Button>
           <Button type="primary" htmlType="submit">Submit</Button>
         </Form.Item>
 

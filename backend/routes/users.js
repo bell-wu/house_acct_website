@@ -38,6 +38,7 @@ router.route('/update/:id').post((req, res) => {
       user.owed = Number(req.body.owed);
       user.id = Number(req.body.id);
 
+      console.log(user);
       user.save()
         .then(() => res.json('User updated!'))
         .catch(err => res.status(400).json('Error: ' + errr));

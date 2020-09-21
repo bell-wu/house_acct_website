@@ -7,6 +7,10 @@ const purchaseSchema = new Schema({
     type: String,
     required: true,
   },
+  id: {
+    type: Number,
+    required: true,
+  },
   date: {
     type: String,
     required: true,

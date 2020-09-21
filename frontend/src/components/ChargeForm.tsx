@@ -56,6 +56,13 @@ export default function ChargeForm(props: OwnProps) {
         </Form.Item>
 
         <Form.Item
+          label="ID"
+          name="id"
+        >
+          <InputNumber/>
+        </Form.Item>
+
+        <Form.Item
           label="Date"
           name="date"
         >

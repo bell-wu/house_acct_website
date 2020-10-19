@@ -2,17 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Space, Table } from 'antd';
 import axios from 'axios';
 
-interface User {
+interface DisplayUser {
   name: string,
   id: number,
   owed: string,
 }
+
 export default function ChargeTable() {
-  const [ users, setUsers ] = useState<User[]>([]);
+  const [ users, setUsers ] = useState<DisplayUser[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios('http://localhost:5000/users');
+      const result = await axios('https://houseaccount.herokuapp.com/users');
 
       setUsers(result.data.map((user:any) => ({
         id: user['id'],
@@ -21,6 +22,7 @@ export default function ChargeTable() {
       ));
     }
     fetchData();
+    
   }, []);
 
   const columns = [

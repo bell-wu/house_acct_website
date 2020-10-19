@@ -15,7 +15,7 @@ class PurchaseController {
     const id = req.body.id;
     const date = Date.parse(req.body.date);
     const price = Number(req.body.price);
-    const buyer = req.body.buyer;
+    // const buyer = req.body.buyer;
     const consumers = req.body.consumers;
     let individualPrice = req.body.price / consumers.length;
     await usersController.updateOwed(id, -req.body.price);
@@ -26,7 +26,8 @@ class PurchaseController {
     
   
   
-    const newPurchase = new purchaseModel({purchaseName, id, date, price, buyer});
+    // const newPurchase = new purchaseModel({purchaseName, id, date, price, buyer});
+    const newPurchase = new purchaseModel({purchaseName, id, date, price});
   
     newPurchase.save()
       .then(() => res.json('Purchase Added!'))

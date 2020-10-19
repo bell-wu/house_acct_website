@@ -19,10 +19,6 @@ const purchaseSchema = new Schema({
     type: Number,
     required: true,
   },
-  buyer: {
-    type: String,
-    required: true,
-  },
   consumers: {
     type: [Number],
   }

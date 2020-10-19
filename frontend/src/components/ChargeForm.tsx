@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-import { Form, Input, InputNumber, DatePicker, Button, Space } from 'antd';
-// import moment from 'moment';
+import { Form, Input, InputNumber, DatePicker, Button, Space, Select, notification } from 'antd';
 import axios from 'axios';
 import NameButtonList from './NameButtonList';
+import { User } from '../models/users';
 
 interface OwnProps {
   setAddRequestActive: Function,
+  users: User[],
 }
 
 export default function ChargeForm(props: OwnProps) {
-  const { setAddRequestActive } = props;
+  const { setAddRequestActive, users } = props;
   const [ form ] = Form.useForm();
   const [ consumers, setConsumers ] = useState([]);
 
   const dateFormat = 'MM/DD/YYYY';
-
-  const userIds = [0, 1, 2, 3, 4, 5, 6];
 
   const layout = {
     labelCol: {
@@ -35,6 +34,11 @@ export default function ChargeForm(props: OwnProps) {
     try {
       const response = await axios.post('http://localhost:5000/purchase/add', processedValues);
       console.log('response:', response);
+      notification.open({
+        message: 'Successfully submitted!',
+        description: 'yay',
+      });
+      setAddRequestActive(false);
     } catch (e) {
       console.log(`Axios request failed: ${e}`);
     }
@@ -49,17 +53,16 @@ export default function ChargeForm(props: OwnProps) {
       >
         <Form.Item
           label="Your Name"
-          name="buyer"
+          name="id"
           rules={[{ required: true, message: 'Please input your name.' }]}
         >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="ID"
-          name="id"
-        >
-          <InputNumber/>
+          <Select
+            showSearch
+            style={{ width: 200 }}
+            placeholder="Select a person"
+          >
+            {users.map(user => <Select.Option value={user.id} key={user.id}>{user.name}</Select.Option>)}
+          </Select>
         </Form.Item>
 
         <Form.Item
@@ -73,6 +76,7 @@ export default function ChargeForm(props: OwnProps) {
         <Form.Item
           label="Item"
           name="purchaseName"
+          rules={[{ required: true, message: 'Please input item name.' }]}
         >
           <Input />
         </Form.Item>
@@ -90,7 +94,7 @@ export default function ChargeForm(props: OwnProps) {
 
         <Form.Item
           label="Split Among">
-          <NameButtonList userIds={userIds} consumers={consumers} setConsumers={setConsumers}/>
+          <NameButtonList users={users} consumers={consumers} setConsumers={setConsumers}/>
         </Form.Item>
 
         <Form.Item>

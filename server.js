@@ -23,6 +23,10 @@ connection.once('open', ()=> {
 const purchaseRouter = require('./routes/purchase');
 const usersRouter = require('./routes/users');
 
+app.get('/test', (req, res) => {
+  res.json('test through');
+});
+
 app.use('/purchase', purchaseRouter);
 app.use('/users', usersRouter);
 

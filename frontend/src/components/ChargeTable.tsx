@@ -2,14 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { Space, Table } from 'antd';
 import axios from 'axios';
 
+interface User {
+  name: string,
+  id: number,
+  owed: string,
+}
 export default function ChargeTable() {
-  const [ dataSource, setDataSource ] = useState([]);
+  const [ users, setUsers ] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios('http://localhost:5000/users');
 
-      setDataSource(result.data);
+      setUsers(result.data.map((user:any) => ({
+        id: user['id'],
+        name: user['name'],
+        owed: user['owed'].toString()})
+      ));
     }
     fetchData();
   }, []);
@@ -32,11 +41,21 @@ export default function ChargeTable() {
     },
   ]
 
+  
+
+  const convertDecimals = () => {
+    let newList = [...users];
+    for(let i = 0; i < newList.length; i++) {
+      
+      newList[i]['owed'] = parseFloat(newList[i]['owed']).toFixed(2);
+    }
+    return newList;
+  } 
 
   return (
     <>
       <Space>
-        <Table dataSource={dataSource} columns={columns} pagination={false}/>
+        <Table dataSource={convertDecimals()} columns={columns} pagination={false}/>
       </Space>
     </>);
 }

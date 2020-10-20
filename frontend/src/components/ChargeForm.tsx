@@ -32,7 +32,7 @@ export default function ChargeForm(props: OwnProps) {
     }
     console.log(processedValues);
     try {
-      const response = await axios.post('http://localhost:5000/purchase/add', processedValues);
+      const response = await axios.post('https://houseaccount.herokuapp.com/purchase/add', processedValues);
       console.log('response:', response);
       notification.open({
         message: 'Successfully submitted!',

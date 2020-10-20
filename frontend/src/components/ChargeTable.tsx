@@ -43,12 +43,9 @@ export default function ChargeTable() {
     },
   ]
 
-  
-
   const convertDecimals = () => {
     let newList = [...users];
     for(let i = 0; i < newList.length; i++) {
-      
       newList[i]['owed'] = parseFloat(newList[i]['owed']).toFixed(2);
     }
     return newList;
